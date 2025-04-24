@@ -228,7 +228,7 @@ func (s *Server) DriverRevokeBucketAccess(ctx context.Context, req *cosi.DriverR
 		return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("failed to get details from bucket: %s", bucketName))
 	}
 
-	// TODO: This is for time being, until side-car & driver is patched to recieve parameters along with the access revoke request
+	// TODO: This is for time being, until side-car & driver is patched to receive parameters along with the access revoke request
 	// Get the parameters from the spec of the bucket
 	param := bucket.Spec.Parameters
 
@@ -447,7 +447,7 @@ func createBucketAccess(ctx context.Context, userName, policyName, bucketName st
 			msg := "failed to create s3 access policy in DSCC."
 			log.Error(err, msg)
 			if err == nil {
-				err = fmt.Errorf(msg)
+				err = fmt.Errorf("%s",msg)
 			}
 			return "", "", err
 
@@ -467,7 +467,7 @@ func createBucketAccess(ctx context.Context, userName, policyName, bucketName st
 		msg := "failure seen with applying policy to s3 user in DSCC."
 		log.Error(err, msg)
 		if err == nil {
-			err = fmt.Errorf(msg)
+			err = fmt.Errorf("%s",msg)
 		}
 		return "", "", err
 	}
@@ -519,7 +519,7 @@ func deleteBucketAccess(ctx context.Context, userName, policyName, bucketName st
 			msg := "failed to delete s3 user in DSCC."
 			log.Error(err, msg)
 			if err == nil {
-				err = fmt.Errorf(msg)
+				err = fmt.Errorf("%s",msg)
 			}
 			return err
 
@@ -549,7 +549,7 @@ func deleteBucketAccess(ctx context.Context, userName, policyName, bucketName st
 			msg := "failed to delete s3 access policy in DSCC."
 			log.Error(err, msg)
 			if err == nil {
-				err = fmt.Errorf(msg)
+				err = fmt.Errorf("%s",msg)
 			}
 			return err
 

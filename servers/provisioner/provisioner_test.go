@@ -31,6 +31,9 @@ import (
 	cosi "sigs.k8s.io/container-object-storage-interface-spec"
 )
 
+var secretName = "cosi-secret"
+var namespace = "cosi-secret-ns"
+
 func TestNew(t *testing.T) {
 	type args struct {
 		logger logr.Logger
@@ -130,8 +133,6 @@ func TestServer_DriverCreateBucket(t *testing.T) {
 	}
 
 	// Create patches to retrieve secret
-	secretName := "cosi-secret"
-	namespace := "cosi-secret-ns"
 	secret := createSecret(secretName, namespace, []byte("testuser"), []byte("testuser"), []byte("http://1.1.1.1:90"), nil)
 	emptySecret := createSecret(secretName, namespace, []byte(""), []byte("testuser"), []byte("http://1.1.1.1:90"), nil)
 	coreV1 := &corev1.CoreV1Client{}
@@ -330,8 +331,6 @@ func TestServer_DriverDeleteBucket(t *testing.T) {
 	log := stdr.New(stdlog.New(os.Stdout, "", stdlog.LstdFlags))
 
 	// Mock secret and bucket methods
-	secretName := "cosi-secret"
-	namespace := "cosi-secret-ns"
 	bucket := &v1alpha1.Bucket{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "bucket1",
@@ -500,8 +499,6 @@ func TestServer_DriverCreateBucketAccess(t *testing.T) {
 	}
 
 	// Create patches to retrieve secret
-	secretName := "cosi-secret"
-	namespace := "cosi-secret-ns"
 	systemId := "DUMMY_SERIAL_NUMBER"
 	glcpCreds := getIAMCredentials()
 	secret := createSecret(secretName, namespace, []byte("testuser"), []byte("testuser"), []byte("http://1.1.1.1:90"), &glcpCreds)
@@ -808,8 +805,6 @@ func TestServer_DriverRevokeBucketAccess(t *testing.T) {
 	}
 
 	// Create patches to retrieve secret
-	secretName := "cosi-secret"
-	namespace := "cosi-secret-ns"
 	systemId := "DUMMY_SERIAL_NUMBER"
 	glcpCreds := getIAMCredentials()
 

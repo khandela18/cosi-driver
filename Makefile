@@ -15,6 +15,8 @@ RUN_TESTS ?= true
 
 GOENV = PATH=$$PATH:$(GOPATH)/bin
 
+LINTER_FLAGS = --disable-all --enable=govet --enable=ineffassign --enable=goconst --enable=gocyclo --enable=misspell --enable=unused
+
 .PHONY: help
 help:
 	@echo "Targets:"
@@ -51,10 +53,17 @@ test:
 	@echo "Running unit tests"
 	go test -v -gcflags=all=-l ./...
 
+.PHONY: lint
+lint:
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	@echo "Running lint"
+	export $(GOENV) && golangci-lint run $(LINTER_FLAGS)
+
 .PHONY: clean
 clean:
 	@rm -rf bin
 
 .PHONY: all
 all:
+	$(MAKE) lint
 	$(MAKE) push RUN_TESTS=$(RUN_TESTS)
