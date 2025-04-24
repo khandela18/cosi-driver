@@ -17,6 +17,8 @@ import (
 	"gotest.tools/v3/assert"
 )
 
+var systemId = "DUMMY_SETUP"
+
 func Test_GetS3AccessPolicy(t *testing.T) {
 	policy := getNewS3Policy()
 	policyName := policy.name
@@ -204,11 +206,8 @@ func Test_DeleteS3AccessPolicy(t *testing.T) {
 }
 
 func getNewS3Policy() *s3policy {
-	token := "bearerdummyoxyzxxzzz12xxxx341111zzzzyyyyyyQQQQQHHHHH"
 	policyName := "bucket1_policy"
 	bucket := "bucket1"
-	systemId := "DUMMY_SETUP"
-	proxy := "http://dummy_proxy:8080"
 	apiClient, _ := NewAPIClient(host, token, proxy).GetAPIClient()
 	return NewS3Policy(policyName, bucket, systemId, apiClient, context.Background())
 }
