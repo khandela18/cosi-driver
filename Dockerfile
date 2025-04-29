@@ -1,7 +1,7 @@
 # © Copyright 2024 Hewlett Packard Enterprise Development LP
 
 # builder image
-FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi9/ubi:9.4-1181 AS build
+FROM --platform=$BUILDPLATFORM registry.access.redhat.com/ubi9/ubi:9.5-1744101466 AS build
 # install prereqs
 RUN dnf install -y make golang
 ENV GOVERSION="go1.22.5"
@@ -28,7 +28,7 @@ RUN make ARCH=$TARGETARCH build
 ARG RUN_TESTS
 RUN if [ "$RUN_TESTS" = "true" ]; then make test; fi
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal:9.4-1194
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.5-1742914212
 
 LABEL name="HPE COSI Driver for Kubernetes" \
     maintainer="HPE Storage" \
