@@ -20,8 +20,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	bucketclientset "sigs.k8s.io/container-object-storage-interface-api/client/clientset/versioned"
-	cosi "sigs.k8s.io/container-object-storage-interface-spec"
+	bucketclientset "sigs.k8s.io/container-object-storage-interface/client/clientset/versioned"
+	cosi "sigs.k8s.io/container-object-storage-interface/proto"
 )
 
 // Server implements cosi.ProvisionerServer interface.
@@ -29,6 +29,7 @@ type Server struct {
 	log             logr.Logger
 	K8sClientset    *kubernetes.Clientset
 	BucketClientset bucketclientset.Interface
+	cosi.UnimplementedProvisionerServer
 }
 
 // Interface guards.
