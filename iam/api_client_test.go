@@ -28,7 +28,7 @@ func Test_GetAPIClient(t *testing.T) {
 }
 
 func Test_GetTaskAPIClient(t *testing.T) {
-		t.Run("GetTaskAPIClient successful", func(t *testing.T) {
+	t.Run("GetTaskAPIClient successful", func(t *testing.T) {
 		apiClient := NewAPIClient(host, token, proxy)
 		client, err := apiClient.GetTaskAPIClient()
 		if err != nil || client == nil {
